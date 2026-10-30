@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob: https://vwfestmemecoin.com; connect-src 'self' https://race.vwfestmemecoin.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>$VWFEST Drag Strip — quarter-mile, air-cooled</title>
+<meta name="description" content="Free browser drag racing for the $VWFEST community. Beetle, Bus, Karmann Ghia or Thing: nail the launch, hit your shifts, win the quarter mile.">
+<link rel="icon" href="https://vwfestmemecoin.com/gallery/favicons/favicon.png">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="https://vwfestmemecoin.com" rel="noopener">$VWFEST · pure enthusiast energy</a>
+  <nav>
+    <a href="https://vwfestmemecoin.com" rel="noopener">Home</a>
+    <a href="https://vwfest.github.io/vwfest-arcade/">Arcade Room</a>
+    <a class="on" href="./">Drag Strip</a>
+    <a href="#boards">Leaderboard</a>
+  </nav>
+</header>
+<main>
+  <section class="hero">
+    <p class="kicker">QUARTER MILE · FOUR SPEEDS · ZERO EXCUSES</p>
+    <h1>DRAG STRIP</h1>
+    <p class="tag">Rev into the green zone, launch on the green light, row through the gears. Beat the other lane.</p>
+  </section>
+  <section class="game-wrap">
+    <div id="stage">
+      <canvas id="game" aria-label="3D drag racing game"></canvas>
+      <div id="hud">
+        <div><span class="lbl">ET</span><b id="hEt">0.000</b></div>
+        <div><span class="lbl">MPH</span><b id="hMph">0</b></div>
+        <div><span class="lbl">REACTION</span><b id="hRt">-.---</b></div>
+        <div class="best"><span class="lbl">BEST ET <span id="hBestCar"></span></span><b id="hBest">--</b></div>
+      </div>
+      <div id="tree" aria-hidden="true">
+        <div class="col" id="treeL"><i data-n="pre"></i><i data-n="stage"></i><i data-n="a1"></i><i data-n="a2"></i><i data-n="a3"></i><i data-n="green"></i><i data-n="red"></i></div>
+        <div class="col" id="treeR"><i data-n="pre"></i><i data-n="stage"></i><i data-n="a1"></i><i data-n="a2"></i><i data-n="a3"></i><i data-n="green"></i><i data-n="red"></i></div>
+      </div>
+      <button id="bMute" type="button" aria-label="Mute or unmute sound" title="Sound on/off (M)">🔊</button>
+      <div id="gauge"><canvas id="tach" width="300" height="190" aria-hidden="true"></canvas><div id="shiftLamp">SHIFT!</div></div>
+      <div id="toast" aria-live="polite"></div>
+      <div id="tip" class="hidden"></div>
+      <div id="overlay">
+        <div class="card" id="cardMenu">
+          <h2>Pick your ride</h2>
+          <div class="chips" id="carChips" role="radiogroup" aria-label="Choose your VW"></div>
+          <div class="stats" id="carStats"></div>
+          <div class="swatches" id="swatches" aria-label="Paint colour"></div>
+          <div class="chips" id="levelChips" role="radiogroup" aria-label="Opponent difficulty"></div>
+          <p class="keys">Desktop: hold <b>W / ↑</b> to rev, <b>Space</b> to launch &amp; shift up, <b>M</b> mute.<br>Mobile: <b>GAS</b> (hold) and the big <b>LAUNCH / SHIFT</b> button.</p>
+          <button class="btn" id="bStart">Stage up</button>
+          <div class="mini"><b>🏆 TOP QUARTER MILES</b><ol class="miniTop"><li class="muted">Loading…</li></ol><a href="#boards" class="jump">Full leaderboard ↓</a></div>
+        </div>
+        <div class="card hidden" id="cardSlip">
+          <h2 id="sHead">Time slip</h2>
+          <p class="big" id="sEt">0.000</p>
+          <p id="sSub" class="posline"></p>
+          <table class="slip"><tbody id="sTable"></tbody></table>
+          <p id="sPB"></p>
+          <form id="fSubmit" autocomplete="off">
+            <label for="nick">Nickname for the quarter-mile board</label>
+            <div class="row"><input id="nick" maxlength="16" minlength="3" pattern="[A-Za-z0-9_\- .]{3,16}" placeholder="BugLife209" required>
+            <button class="btn" id="bSubmit" type="submit">Post time</button></div>
+          </form>
+          <p id="sMsg" class="msg"></p>
+          <button class="btn ghost" id="bAgain">Run it back</button> <button class="btn ghost" id="bGarage">Change car</button>
+        </div>
+      </div>
+      <div id="touch"><button id="tGas" class="gas" aria-label="Rev (hold)">GAS</button><button id="tAct" class="act" aria-label="Launch / shift up">LAUNCH</button></div>
+      <p id="noGL" class="hidden">This game needs WebGL. Try a recent Chrome, Safari or Firefox.</p>
+    </div>
+  </section>
+  <section class="boards" id="boards">
+    <div class="board"><h3>🏆 QUARTER-MILE LEADERBOARD</h3><p class="sub">Best ET per nickname · nickname only, no account</p><ol id="global"><li class="muted">Loading…</li></ol></div>
+    <div class="board"><h3>YOUR GARAGE</h3><p class="sub">Personal bests on this device</p><ol id="local"></ol><button class="btn ghost small" id="bClear" type="button">Clear my times</button></div>
+  </section>
+</main>
+<footer>
+  <p><a href="https://vwfestmemecoin.com" rel="noopener">← Back to $VWFEST</a> · <a href="https://vwfest.github.io/vwfest-arcade/">Arcade Room</a> · <a href="https://x.com/VWFESTLIVE" rel="noopener noreferrer">@VWFESTLIVE ↗</a></p>
+  <p class="fine">Just for fun — no wallet, no login, no prizes. $VWFEST is a community-driven meme coin. Not financial advice. Just vibes, views, and a full tank.</p>
+</footer>
+<script src="game.js?v=1"></script>
+</body>
+</html>

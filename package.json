@@ -1,0 +1,8 @@
+{
+  "name": "vwfest-drag",
+  "version": "1.0.0",
+  "private": true,
+  "description": "$VWFEST Drag Strip: a 3D quarter-mile drag racing game (Three.js, no server of its own).",
+  "scripts": { "build": "node build.cjs", "test": "node test/e2e.cjs", "serve": "python3 -m http.server 8098" },
+  "devDependencies": { "esbuild": "^0.28.2", "playwright": "^1.64.1", "three": "^0.186.1" }
+}
