@@ -80,3 +80,8 @@ footer{text-align:center;padding:20px 14px 40px;border-top:1px solid var(--line)
   #tip{bottom:128px;font-size:12px}
   .big{font-size:36px}
 }
+
+/* embedded in the Arcade Room (?embed=1) */
+.embed .nav,.embed .hero,.embed footer,.embed .boards{display:none}
+.embed main{max-width:none;padding:0}.embed .game-wrap{margin:0}
+.embed #stage{aspect-ratio:auto;height:100vh;min-height:360px;border-radius:0;border:0}

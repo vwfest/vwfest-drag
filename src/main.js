@@ -10,6 +10,7 @@ const API = 'https://race.vwfestmemecoin.com/api/arcade/drag', LS_KEY = 'vwfest_
 const $ = id => document.getElementById(id);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const params = new URLSearchParams(location.search);
+if (params.get('embed') === '1') document.body.classList.add('embed');   // used by the Arcade Room iframe: hide page chrome, game fills the frame
 const manual = !!params.get('manual');                       // test hook: stop the realtime loop; tests advance time with __drag.step()
 
 // ---------- quality / renderer ----------
